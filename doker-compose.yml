@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: process.env.MONGO_URI
+    networks:
+      - mynetwork # Use the same network name for both services
+
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: m7moudshayeb
+      MONGO_INITDB_ROOT_PASSWORD: m7moudshayeb
+      MONGO_INITDB_DATABASE: Sari
+    networks:
+      - mynetwork # Use the same network name for both services
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mongo-data: {}
