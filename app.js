@@ -9,6 +9,9 @@ const anonLocation = require('./routes/anonymous-location.route.js');
 const settings = require('./routes/settings.route.js');
 const login = require('./login.js');
 
+const notFound = require('./middleware/not-found');
+const errorHandler = require('./middleware/error-handler');
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -16,6 +19,9 @@ app.use(login);
 app.use('/api/realestate', realEstate);
 app.use('/api/locations', anonLocation);
 app.use('/api/settings', settings);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = parseInt(process.env.PORT) || 5000;
 const start = async () => {
